@@ -67,10 +67,10 @@ Updating attributes:
 
 In order to ensure Rails 3 compatibility, you'll need to include some ActiveModel modules in your JsonModel classes:
 
-  class User
-    include ActiveModel::Validations
-    include ActiveModel::Conversion
-    extend  ActiveModel::Naming
+    class User
+      include ActiveModel::Validations
+      include ActiveModel::Conversion
+      extend  ActiveModel::Naming
       include JsonModel
       include JsonModel::ValidationHelper
 
