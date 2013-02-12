@@ -6,7 +6,7 @@ ActiveRecord replacement for pure JSON models.
 
 Put the following line in your Gemfile:
 
-  gem 'json_model', :git => 'git://github.com/pch/json_model.git'
+  gem 'json_model', :git => 'git://github.com/underwhelmed/json_model.git'
 
 And run `bundle install` afterwards.
 
