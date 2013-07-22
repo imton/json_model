@@ -7,7 +7,11 @@ module JsonModel
 
       attrs = symbolize_keys(attrs)
 
+      puts " "
+      puts "Self #{self}"
+      puts " "
       self.class.associations.each do |a, info|
+        puts "initialize >>>> #{a} /// #{info}"
         send("#{a}=", [])
         next if !attrs.include?(a)
 
@@ -23,12 +27,17 @@ module JsonModel
         end
 
         attrs[a].each do |assoc|
+          puts "assoc >>>> #{assoc} "
+
           if assoc.is_a?(Array)
             assoc = assoc[1]
           end
 
           attrib = send(a)
-          attrib.push(klass.new(assoc))
+          instance = klass.new(assoc)
+          instance.instance_variable_set("@parent", self)
+          attrib.push(instance)
+
         end
       end
     end
@@ -39,6 +48,9 @@ module JsonModel
     def as_json
       attrs = super
       self.class.associations.each do |name, info|
+
+        puts "as_json >>>> #{name} /// #{info}"
+
         attrs[name] = []
 
         arr = send(name)
@@ -57,6 +69,7 @@ module JsonModel
       end
 
       def has_many(association, params = {})
+        puts "has_many >>>> #{association} || #{self}"
         associations.store(association, params)
         self.send(:attr_accessor, association)
       end
